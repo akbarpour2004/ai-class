@@ -1,0 +1,72 @@
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+banana_hight = np.random.randint(15, 26, 50)
+banana_width = np.random.randint(3, 7, 50)
+
+apple_hight = np.random.randint(5, 10, 50)
+apple_width = np.random.randint(5, 9, 50)
+
+print("banana_hight", banana_hight)
+print("banana_width", banana_width)
+print("apple_hight", apple_hight)
+print("apple_width", apple_width)
+
+X_Train = []
+
+for i in range(50):
+    X_Train.append([apple_width[i], apple_hight[i]])
+
+for i in range(50):
+    X_Train.append([banana_width[i], banana_hight[i]])
+
+X_Train = np.array(X_Train)
+
+Y_Train = []
+
+for i in range(100):
+    if i < 50:
+        Y_Train.append(0)  
+    else:
+        Y_Train.append(1) 
+
+Y_Train = np.array(Y_Train)
+
+plt.scatter(
+    apple_width, apple_hight,
+    color="red", label="Apple"
+)
+
+plt.scatter(
+    banana_width, banana_hight,
+    color="yellow", label="Banana"
+)
+
+new_fruit = [6, 12]
+
+plt.scatter(
+    new_fruit[0], new_fruit[1],
+    color="blue", marker="*", s=200,
+    label="New Fruit"
+)
+
+plt.xlabel("Width")
+plt.ylabel("Height")
+plt.title("Fruit Classification")
+plt.legend()
+plt.grid()
+plt.show()
+
+distances = []
+
+for i in range(len(X_Train)):
+    distance = np.sqrt(
+        (new_fruit[0] - X_Train[i][0]) ** 2 +
+        (new_fruit[1] - X_Train[i][1]) ** 2
+    )
+
+    distances.append(distance)
+
+print("Distances:")
+print(distances)
